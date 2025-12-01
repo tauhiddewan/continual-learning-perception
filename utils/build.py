@@ -1,12 +1,11 @@
 import os
-from glob import glob
 import random
+from glob import glob
+from config import *
 
 DATA_DIR = "./data"  
 
-os.makedirs("splits", exist_ok=True)
-train_list_path = "splits/train_all.txt"
-val_list_path   = "splits/val_all.txt"
+os.makedirs("outputs/splits", exist_ok=True)
 
 print("Looking in:", os.path.abspath(DATA_DIR))
 
@@ -34,14 +33,14 @@ split_idx = int(0.9 * len(pairs))
 train_pairs = pairs[:split_idx]
 val_pairs   = pairs[split_idx:]
 
-with open(train_list_path, "w") as f:
+with open(TRAIN_SPLIT, "w") as f:
     for c, l in train_pairs:
         f.write(f"{c} {l}\n")
 
-with open(val_list_path, "w") as f:
+with open(VAL_SPLIT, "w") as f:
     for c, l in val_pairs:
         f.write(f"{c} {l}\n")
 
 print("Wrote:")
-print(" ", train_list_path, len(train_pairs))
-print(" ", val_list_path, len(val_pairs))
+print(" ", TRAIN_SPLIT, len(train_pairs))
+print(" ", VAL_SPLIT, len(val_pairs))
