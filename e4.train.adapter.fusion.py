@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torch import nn
 from torch.utils.data import DataLoader
 from transformers import SegformerForSemanticSegmentation
-from utils.dataset import YCBSegformerDataset
+from utils.dataset import YCBDataset
 from utils.config import * 
 from utils.logger import get_logger
 
@@ -90,17 +90,17 @@ def inject_lora_into_segformer(model: nn.Module, r: int = 8, alpha: int = 16):
 # --------------------- Data & model helpers ---------------------- #
 
 def get_dataloaders(batch_size=2, resize=(384, 384)):
-    train_new = YCBSegformerDataset(
+    train_new = YCBDataset(
         TRAIN_SPLIT,
         phase="new",
         resize=resize,
     )
-    val_base = YCBSegformerDataset(
+    val_base = YCBDataset(
         VAL_SPLIT,
         phase="base",
         resize=resize,
     )
-    val_new = YCBSegformerDataset(
+    val_new = YCBDataset(
         VAL_SPLIT,
         phase="new",
         resize=resize,
